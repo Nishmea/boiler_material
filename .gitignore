@@ -1,0 +1,12 @@
+.DS_STORE
+
+node_modules/*
+dist/*
+build/*
+vendor/*
+
+*_old*
+
+*.log*
+
+*Thumbs.db
