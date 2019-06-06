@@ -26,16 +26,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jp?g|wav|pdf|mp4|webm)$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[path][name].[ext]',
-            context: './'
-          }
-        },
-      },
-      {
         test: /\.(scss|css)$/,
         use: [
             'style-loader',
@@ -62,9 +52,6 @@ module.exports = {
       title: 'Boilerplate App',
       favicon: './assets/img/favicon.png',
       template: './index.html',
-    }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"development"',
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
