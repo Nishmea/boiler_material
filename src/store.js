@@ -6,21 +6,21 @@ import rootReducer from './reducers';
 
 export default function configureStore(initialState) {
 
-  const middlewares = [
-    applyMiddleware(thunk),
-  ];
+	const middlewares = [
+		applyMiddleware(thunk),
+	];
 
-  const store = createStore(
-    rootReducer,
-    initialState,
-    composeWithDevTools(...middlewares)
-  );
+	const store = createStore(
+		rootReducer,
+		initialState,
+		composeWithDevTools(...middlewares)
+	);
 
-  if (process.env.NODE_ENV === 'development' && module.hot) {
-    module.hot.accept('./reducers', () => {
-      store.replaceReducer(rootReducer);
-    });
-  }
+	if (process.env.NODE_ENV === 'development' && module.hot) {
+		module.hot.accept('./reducers', () => {
+			store.replaceReducer(rootReducer);
+		});
+	}
 
-  return store;
+	return store;
 }

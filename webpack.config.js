@@ -1,7 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const pkg = require('./package.json');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -18,6 +22,15 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+				enforce: 'pre',
+				test: /\.(js|jsx)$/,
+				exclude: /(node_modules)/,
+				loader: 'eslint-loader',
+				options: {
+					fix: true,
+				},
+			},
       {
         test: /\.(js|jsx)$/,
         exclude: [/node_modules/],
@@ -39,49 +52,61 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     modules: [
       path.resolve(__dirname, 'node_modules'),
-      path.resolve(__dirname, './'),
+			path.resolve(__dirname, 'modules'),
     ],
   },
   plugins: [
+		new Dotenv(),
+    new CleanWebpackPlugin({
+			verbose: true,
+			protectWebpackAssets: true,
+		}),
     new webpack.ProvidePlugin({
       'React': 'react',
       'Redux': 'react-redux',
       'PropTypes': 'prop-types',
     }),
-    new HtmlWebpackPlugin({
-      title: 'Boilerplate App',
-      favicon: './assets/img/favicon.png',
-      template: './index.html',
-    }),
-    new webpack.HotModuleReplacementPlugin(),
+		new HtmlWebpackPlugin({
+			title: 'Boilerplate',
+			template: './index.html',
+			favicon: './assets/img/favicon.png',
+			filename: 'index.html',
+			hash: true,
+			meta: {
+				buildTime: `${Date.now()}`,
+				version: `${pkg.version}`,
+			},
+		}),
   ],
   devServer: {
     host: 'localhost',
-    port: 8080,
+		port: 'auto',
     hot: true,
-    publicPath: '/',
-    contentBase: './src',
-    compress: true,
-    inline: true,
-    index: 'index.html',
     open: true,
-    overlay: true,
-    historyApiFallback: true,
     //proxy: {},
-    stats: {
-      assets: false,
-      builtAt: true,
-      children: false,
-      chunks: false,
-      depth: false,
-      errors: true,
-      hash: true,
-      modules: false,
-      publicPath: true,
-      timings: true,
-      version: true,
-      warnings: true,
-      colors: true,
+    static: {
+      directory: path.resolve(__dirname, "static"),
+      staticOptions: {},
+      publicPath: './public',
+      serveIndex: true,
+      watch: true,
     },
+    client: {
+      logging: 'info',
+      overlay: true,
+      progress: true,
+    },
+    devMiddleware: {
+      index: true, 
+      publicPath: '/',
+      stats: {
+        preset: 'errors-warnings',
+        builtAt: true,
+        colors: true,
+        performance: true,
+        timings: true,
+        version: true,
+      },
+    }
   },
 };

@@ -1,43 +1,92 @@
 {
-  "parser": "babel-eslint",
-  "plugins": [
-    "react"
-  ],
-  "env": {
-    "es6": true,
-    "browser": true,
-    "node": true
-  },
-  "rules": {
-    "curly": 1,
+	"env": {
+		"browser": true,
+		"es6": true,
+		"node": true
+	},
+	"parser": "babel-eslint",
+	"globals": {
+		"amazon": "readonly",
+		"vgo": "readonly"
+	},
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 6,
+		"sourceType": "module"
+	},
+	"plugins": [
+		"react"
+	],
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended"
+	],
+	"rules": {
     "comma-dangle": [1, "always-multiline"],
     "comma-spacing": [1, { "before": false, "after": true }],
-    "eqeqeq": [1, "allow-null"],
+    "consistent-return": 0,
+    "computed-property-spacing": 1,
+    "curly": 1,
+    "default-case": 1,
+    "dot-notation": 1,
+    "eqeqeq": [0, "allow-null"],
+    "indent": [1, "tab"],
     "key-spacing": [1, { "beforeColon": false, "afterColon": true }],
+    "keyword-spacing": [1, { "before": true }],
+    "lines-between-class-members": 1,
+    "new-cap": 1,
     "no-alert": 1,
     "no-lonely-if": 1,
-    "no-else-return": 0,
+    "no-else-return": 1,
     "no-empty-function": 1,
+    "no-extend-native": 1,
+    "no-extra-bind": 1,
     "no-fallthrough": 1,
     "no-floating-decimal": 1,
     "no-magic-numbers": [0, { "ignoreArrayIndexes": true }],
+    "no-multi-spaces": [1, { "ignoreEOLComments": true }],
+    "no-multiple-empty-lines": [1, {"max": 2}],
+    "no-unreachable": 0,
     "no-underscore-dangle": 1,
     "no-unused-expressions": 1,
     "no-unused-labels": 1,
-    "no-unused-vars": 0,
+    "no-unused-vars": [1, {"args": "none", "varsIgnorePattern": "[PropTypes][classes]"}],
+    "no-useless-concat": 1,
     "no-self-assign": 1,
     "no-shadow": 1,
     "no-shadow-restricted-names": 1,
-    "no-extend-native": 1,
     "no-var": 1,
-    "new-cap": 1,
+    "vars-on-top": 1,
     "quotes": [1, "single", {"avoidEscape": true}],
-    "semi": 0,
+    "react/no-string-refs": 1,
+    "react/prop-types": 1,
+    "react/jsx-key": 1,
+    "react/no-typos": 2,
+    "react/no-deprecated": 2,
+    "react/jsx-no-useless-fragment": 1,
+    "react/jsx-tag-spacing": [1, { "beforeSelfClosing": "always" }],
+    "react/self-closing-comp": [1, {"component": true, "html": true}],
+    "react/jsx-pascal-case": 1,
+    "react/jsx-closing-tag-location": 1,
+    "react/jsx-newline": 1,
+    "react/jsx-equals-spacing": [1, "never"],
+    "react/jsx-child-element-spacing": 1,
+    "react/jsx-indent-props": [1, "tab"],
+    "react/no-unused-prop-types": [1, { "skipShapeProps": true }],
+    "react/sort-comp": 1,
+    "semi": 1,
     "semi-spacing": 1,
     "space-unary-ops": 1,
     "space-infix-ops": 1,
-    "consistent-return": 0,
-    "default-case": 1,
-    "no-extra-bind": 1
+    "prefer-const": 0
   },
+	"settings": {
+		"react": {
+      "pragma": "React",
+      "fragment": "Fragment",
+			"version": "detect"
+		}
+	}
 }
